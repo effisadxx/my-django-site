@@ -1,0 +1,341 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-header bg-white border-0 pt-4">
+                    <h3 class="mb-0 fs-4 fw-semibold">
+                        <i class="bi bi-cloud-upload text-primary me-2"></i>
+                        Загрузка документа
+                    </h3>
+                    <p class="text-muted small mt-1">Заполните информацию о документе</p>
+                </div>
+                <div class="card-body p-4">
+                    <form method="post" enctype="multipart/form-data" id="uploadForm">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-medium">Название</label>
+                            {{ form.title }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-medium">Категория</label>
+                            {{ form.category }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-medium">Файл</label>
+                            {{ form.file }}
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label fw-medium">Описание (необязательно)</label>
+                            {{ form.description }}
+                        </div>
+                        
+                        <!-- Доступ -->
+                        <div class="mb-4">
+                            <div class="row">
+                                <div class="col-md-6 mb-2">
+                                    <div class="border rounded-3 p-3" id="publicCard" style="cursor:pointer;">
+                                        <div class="form-check">
+                                            {{ form.is_public }}
+                                            <label class="form-check-label fw-medium">📢 Общедоступный</label>
+                                        </div>
+                                        <div class="small text-muted ms-4">Доступен всем пользователям</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <div class="border rounded-3 p-3" id="personalCard" style="cursor:pointer;">
+                                        <div class="form-check">
+                                            {{ form.is_personal }}
+                                            <label class="form-check-label fw-medium">🔒 Личный документ</label>
+                                        </div>
+                                        <div class="small text-muted ms-4">Только для выбранных получателей</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Личный документ блок -->
+                        <div id="personalBlock" style="display: none;" class="border-top pt-4">
+                            <div class="mb-3">
+                                <label class="form-label fw-medium">Тип получателя</label>
+                                <div class="d-flex gap-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="recipient_type_radio" id="typeStudent" value="student" checked>
+                                        <label class="form-check-label" for="typeStudent">🎓 Студенты</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="recipient_type_radio" id="typeTeacher" value="teacher">
+                                        <label class="form-check-label" for="typeTeacher">👨‍🏫 Преподаватели</label>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="recipient_type" name="recipient_type" value="student">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label fw-medium">Поиск получателей</label>
+                                <div class="position-relative">
+                                    <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
+                                    <input type="text" id="recipientSearch" class="form-control ps-5" 
+                                           placeholder="Введите фамилию, имя или группу...">
+                                    <div id="searchResults" class="position-absolute w-100 bg-white border rounded-3 mt-1 shadow-sm" 
+                                         style="max-height: 250px; overflow-y: auto; display: none; z-index: 1000;"></div>
+                                </div>
+                                <div class="small text-muted">Начните вводить фамилию или имя, кликните для добавления</div>
+                            </div>
+                            
+                            <!-- Список выбранных получателей -->
+                            <div id="selectedList" class="mb-3">
+                                <!-- Сюда будут добавляться выбранные получатели -->
+                            </div>
+                            
+                            <div id="selectedRecipients">
+                                <!-- Скрытые поля для отправки -->
+                            </div>
+                        </div>
+                        
+                        <hr class="my-4">
+                        
+                        <div class="d-flex justify-content-end gap-2">
+                            <a href="{% url 'home' %}" class="btn btn-secondary">Отмена</a>
+                            <button type="submit" class="btn btn-primary px-4">Загрузить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ========== ДОМ ЭЛЕМЕНТЫ ==========
+    const publicCheckbox = document.querySelector('#id_is_public');
+    const personalCheckbox = document.querySelector('#id_is_personal');
+    const personalBlock = document.getElementById('personalBlock');
+    const publicCard = document.getElementById('publicCard');
+    const personalCard = document.getElementById('personalCard');
+    const typeStudent = document.getElementById('typeStudent');
+    const typeTeacher = document.getElementById('typeTeacher');
+    const recipientTypeHidden = document.getElementById('recipient_type');
+    const searchInput = document.getElementById('recipientSearch');
+    const resultsDiv = document.getElementById('searchResults');
+    const selectedList = document.getElementById('selectedList');
+    const selectedRecipients = document.getElementById('selectedRecipients');
+    let currentType = 'student';
+    let searchTimeout;
+    let selectedItems = [];
+    
+    // ========== ВЫБОР ТИПА ДОСТУПА ==========
+    function updateAccessUI() {
+        if (personalCheckbox.checked) {
+            personalBlock.style.display = 'block';
+            personalCard.style.background = '#e3f2fd';
+            personalCard.style.borderColor = '#1e40af';
+            publicCard.style.background = '#f8f9fa';
+            publicCard.style.borderColor = '#dee2e6';
+        } else {
+            personalBlock.style.display = 'none';
+            publicCard.style.background = '#e3f2fd';
+            publicCard.style.borderColor = '#1e40af';
+            personalCard.style.background = '#f8f9fa';
+            personalCard.style.borderColor = '#dee2e6';
+            clearAll();
+        }
+    }
+    
+    publicCard.addEventListener('click', () => {
+        publicCheckbox.checked = true;
+        personalCheckbox.checked = false;
+        updateAccessUI();
+    });
+    
+    personalCard.addEventListener('click', () => {
+        publicCheckbox.checked = false;
+        personalCheckbox.checked = true;
+        updateAccessUI();
+    });
+    
+    // ========== ВЫБОР ТИПА ПОЛУЧАТЕЛЯ ==========
+    function setRecipientType(type) {
+        currentType = type;
+        recipientTypeHidden.value = type;
+        clearAll();
+    }
+    
+    if (typeStudent) {
+        typeStudent.addEventListener('change', () => setRecipientType('student'));
+    }
+    if (typeTeacher) {
+        typeTeacher.addEventListener('change', () => setRecipientType('teacher'));
+    }
+    
+    // ========== ДОБАВЛЕНИЕ ПОЛУЧАТЕЛЯ ==========
+    window.addRecipient = function(id, name, info) {
+        // Проверяем, не добавлен ли уже
+        if (selectedItems.some(item => item.id === id)) {
+            alert('Этот получатель уже добавлен');
+            return;
+        }
+        
+        // Добавляем в список
+        selectedItems.push({id, name, info});
+        renderSelectedList();
+        
+        // Очищаем поле поиска
+        searchInput.value = '';
+        resultsDiv.style.display = 'none';
+        searchInput.focus();
+    }
+    
+    // ========== УДАЛЕНИЕ ПОЛУЧАТЕЛЯ ==========
+    window.removeRecipient = function(id) {
+        selectedItems = selectedItems.filter(item => item.id !== id);
+        renderSelectedList();
+    }
+    
+    // ========== ОЧИСТКА ВСЕХ ==========
+    window.clearAll = function() {
+        selectedItems = [];
+        renderSelectedList();
+        if (searchInput) {
+            searchInput.disabled = false;
+            searchInput.value = '';
+            searchInput.placeholder = 'Введите фамилию, имя или группу...';
+        }
+        if (resultsDiv) {
+            resultsDiv.innerHTML = '';
+            resultsDiv.style.display = 'none';
+        }
+    }
+    
+    // ========== ОТОБРАЖЕНИЕ СПИСКА ==========
+    function renderSelectedList() {
+        if (!selectedList) return;
+        
+        if (selectedItems.length === 0) {
+            selectedList.innerHTML = '<div class="text-muted small">👤 Получатели не выбраны</div>';
+            return;
+        }
+        
+        let html = '<div class="d-flex flex-wrap gap-2">';
+        for (let i = 0; i < selectedItems.length; i++) {
+            const item = selectedItems[i];
+            html += `
+                <div class="badge bg-primary d-flex align-items-center gap-2 p-2" style="font-size: 14px;">
+                    <span>${item.name}</span>
+                    <button type="button" class="btn-close btn-close-white" style="font-size: 8px;" onclick="removeRecipient(${item.id})"></button>
+                </div>
+            `;
+        }
+        html += '</div>';
+        selectedList.innerHTML = html;
+        
+        // Обновляем скрытые поля для отправки
+        updateHiddenFields();
+    }
+    
+    // ========== ОБНОВЛЕНИЕ СКРЫТЫХ ПОЛЕЙ ==========
+    function updateHiddenFields() {
+        if (!selectedRecipients) return;
+        
+        // Очищаем старые поля
+        selectedRecipients.innerHTML = '';
+        
+        // Добавляем скрытые поля для каждого получателя
+        for (let i = 0; i < selectedItems.length; i++) {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'recipient_ids[]';
+            input.value = selectedItems[i].id;
+            selectedRecipients.appendChild(input);
+        }
+    }
+    
+    // ========== ПОИСК ==========
+    function searchRecipients() {
+        if (!searchInput) return;
+        
+        if (searchInput.disabled) return;
+        
+        const query = searchInput.value.trim();
+        
+        if (query.length < 2) {
+            if (resultsDiv) resultsDiv.style.display = 'none';
+            return;
+        }
+        
+        clearTimeout(searchTimeout);
+        
+        if (resultsDiv) {
+            resultsDiv.innerHTML = '<div class="p-2">🔍 Поиск...</div>';
+            resultsDiv.style.display = 'block';
+        }
+        
+        searchTimeout = setTimeout(() => {
+            fetch(`/api/search-recipients/?q=${encodeURIComponent(query)}&type=${currentType}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length === 0) {
+                        if (resultsDiv) resultsDiv.innerHTML = '<div class="p-2">😕 Ничего не найдено</div>';
+                        return;
+                    }
+                    
+                    // Фильтруем уже добавленных
+                    const filteredData = data.filter(item => !selectedItems.some(selected => selected.id === item.id));
+                    
+                    if (filteredData.length === 0) {
+                        if (resultsDiv) resultsDiv.innerHTML = '<div class="p-2">✅ Все найденные уже добавлены</div>';
+                        return;
+                    }
+                    
+                    let html = '';
+                    for (let i = 0; i < filteredData.length; i++) {
+                        const item = filteredData[i];
+                        html += `<div class="p-2 border-bottom" style="cursor:pointer" onclick="addRecipient(${item.id}, '${item.full_name.replace(/'/g, "\\'")}', '${item.info.replace(/'/g, "\\'")}')">
+                            <div class="fw-semibold">${item.full_name}</div>
+                            <div class="small text-muted">${item.info}</div>
+                        </div>`;
+                    }
+                    if (resultsDiv) resultsDiv.innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Ошибка:', error);
+                    if (resultsDiv) resultsDiv.innerHTML = '<div class="p-2 text-danger">❌ Ошибка соединения</div>';
+                });
+        }, 300);
+    }
+    
+    if (searchInput) {
+        searchInput.addEventListener('input', searchRecipients);
+    }
+    
+    // Закрыть результаты при клике вне
+    document.addEventListener('click', function(e) {
+        if (searchInput && resultsDiv && 
+            !searchInput.contains(e.target) && 
+            !resultsDiv.contains(e.target)) {
+            if (resultsDiv) resultsDiv.style.display = 'none';
+        }
+    });
+    
+    // ========== ВАЛИДАЦИЯ ==========
+    const form = document.getElementById('uploadForm');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            if (personalCheckbox && personalCheckbox.checked && selectedItems.length === 0) {
+                e.preventDefault();
+                alert('❌ Пожалуйста, выберите хотя бы одного получателя');
+            }
+        });
+    }
+    
+    // Инициализация
+    renderSelectedList();
+    updateAccessUI();
+</script>
+{% endblock %}

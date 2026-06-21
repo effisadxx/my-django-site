@@ -1,0 +1,359 @@
+{% extends 'base.html' %}
+
+{% block extra_css %}
+<style>
+  /* Стили для печати - скрываем лишние элементы */
+  @media print {
+
+    /* Скрываем всё лишнее */
+    .navbar,
+    footer,
+    .card-header,
+    .search-container,
+    .btn,
+    .no-print,
+    .btn-secondary,
+    .btn-primary,
+    .btn-warning,
+    .btn-danger {
+      display: none !important;
+    }
+
+    /* Показываем только содержимое отчёта */
+    .print-content {
+      margin: 0;
+      padding: 0;
+    }
+
+    .card {
+      border: none;
+      box-shadow: none;
+    }
+
+    .table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .table th,
+    .table td {
+      border: 1px solid #000;
+      padding: 8px;
+    }
+
+    .badge {
+      border: none;
+      background: none !important;
+      color: #000 !important;
+    }
+
+    .selected-doc-card {
+      border: 1px solid #000;
+      background: none !important;
+    }
+
+    .stat-card {
+      border: 1px solid #000;
+      background: none !important;
+      color: #000 !important;
+    }
+
+    .stat-card h3 {
+      color: #000 !important;
+    }
+
+    body {
+      background: white;
+      padding: 0;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 100%;
+      padding: 0;
+      margin: 0;
+    }
+  }
+
+  /* Стили для экрана */
+  .search-container {
+    position: relative;
+  }
+
+  .search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    z-index: 1000;
+    display: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .search-result-item {
+    padding: 12px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .search-result-item:hover {
+    background: #e3f2fd;
+  }
+
+  .search-result-item .title {
+    font-weight: 600;
+    color: #1e40af;
+  }
+
+  .search-result-item .date {
+    font-size: 12px;
+    color: #6c757d;
+    margin-top: 4px;
+  }
+
+  .selected-doc-card {
+    background: #f0fdf4;
+    border: 1px solid #22c55e;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 15px;
+  }
+
+  .stat-card {
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .stat-card h3 {
+    font-size: 32px;
+    margin: 0;
+    color: #1e40af;
+  }
+
+  .badge-student {
+    background: #28a745;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+  }
+
+  .badge-teacher {
+    background: #17a2b8;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="card">
+    <div class="card-header bg-primary text-white no-print">
+      <h4 class="mb-0"><i class="bi bi-file-earmark-text"></i> Отчёт по документу</h4>
+    </div>
+    <div class="card-body">
+      <!-- Поиск (только на экране) -->
+      <div class="mb-4 no-print">
+        <label class="form-label fw-bold">🔍 Поиск документа</label>
+        <div class="search-container position-relative">
+          <input type="text" id="docSearch" class="form-control" placeholder="Введите название документа..."
+            autocomplete="off" onkeyup="searchDocuments()">
+          <div id="searchResults" class="search-results"></div>
+        </div>
+      </div>
+
+      {% if selected_document %}
+      <!-- СОДЕРЖИМОЕ ДЛЯ ПЕЧАТИ -->
+      <div class="print-content">
+        <!-- Информация о документе -->
+        <div class="selected-doc-card">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <h5>{{ selected_document.title }}</h5>
+              <p class="text-muted mb-0">{{ selected_document.description|default:"Нет описания" }}</p>
+              <small>📅 {{ selected_document.created_at|date:"d.m.Y H:i" }}</small>
+              {% if selected_document.is_personal %}
+              <span class="badge bg-info">🔒 Личный документ</span>
+              {% else %}
+              <span class="badge bg-secondary">📢 Общедоступный документ</span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        {% if selected_document.is_personal %}
+        <!-- Статистика -->
+        <div class="row mb-4">
+          <div class="col-md-4">
+            <div class="stat-card text-center">
+              <h3 class="text-success">{{ signed_count }}</h3>
+              <p>✅ Подписали студенты</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="stat-card text-center">
+              <h3 class="text-danger">{{ unsigned_count }}</h3>
+              <p>❌ Не подписали студенты</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="stat-card text-center">
+              <h3 class="text-primary">{{ total_students }}</h3>
+              <p>📊 Всего студентов</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Таблица с подписями -->
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead class="table-light">
+              <tr>
+                <th>#</th>
+                <th>ФИО студента</th>
+                <th>Группа</th>
+                <th>Подпись студента</th>
+                <th>Дата подписи студента</th>
+                <th>Кто подписал со стороны техникума</th>
+                <th>Должность</th>
+                <th>Дата подписи</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in report_data %}
+              <tr class="{% if item.student_signed %}table-success{% else %}table-danger{% endif %}">
+                <td>{{ forloop.counter }}</td>
+                <td><strong>{{ item.full_name }}</strong></td>
+                <td>{{ item.group }}</td>
+                <td>
+                  {% if item.student_signed %}
+                  <span class="badge bg-success">Подписал</span>
+                  {% else %}
+                  <span class="badge bg-danger">Не подписал</span>
+                  {% endif %}
+                </td>
+                <td>{{ item.student_signed_at|date:"d.m.Y H:i"|default:"—" }}</td>
+                <td>
+                  {% if item.teacher_signed %}
+                  <span class="badge bg-info">{{ item.teacher_name }}</span>
+                  {% else %}
+                  <span class="badge bg-secondary">—</span>
+                  {% endif %}
+                </td>
+                <td>
+                  {% if item.teacher_role %}
+                  {% if item.teacher_role == 'secretary' %}Секретарь
+                  {% elif item.teacher_role == 'teacher' %}Преподаватель
+                  {% elif item.teacher_role == 'admin' %}Администратор
+                  {% else %}{{ item.teacher_role }}{% endif %}
+                  {% else %}—{% endif %}
+                </td>
+                <td>{{ item.teacher_signed_at|date:"d.m.Y H:i"|default:"—" }}</td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="8" class="text-center">Нет данных</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Легенда -->
+        <div class="mt-3 p-3 bg-light rounded">
+          <h6>📌 Пояснение:</h6>
+          <ul class="mb-0">
+            <li><span class="badge bg-success">Подписал</span> - студент подписал документ</li>
+            <li><span class="badge bg-danger">Не подписал</span> - студент ещё не подписал документ</li>
+            <li><span class="badge bg-info">ФИО</span> - сотрудник техникума, подписавший документ</li>
+          </ul>
+        </div>
+
+        {% else %}
+        <!-- Для общедоступных документов -->
+        <div class="alert alert-warning text-center">
+          <i class="bi bi-info-circle fs-1"></i>
+          <h5>Общедоступный документ</h5>
+          <p class="mb-0">Данный документ не требует подписи. Он доступен для скачивания всем пользователям.</p>
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Кнопки (только на экране) -->
+      <div class="mt-3 no-print">
+        <a href="{% url 'report_pdf' selected_document.id %}" class="btn btn-primary" target="_blank">
+          <i class="bi bi-file-earmark-pdf"></i> Скачать отчёт (PDF)
+        </a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+  let searchTimeout;
+
+  function printReport() {
+    window.print();
+  }
+
+  function searchDocuments() {
+    const query = document.getElementById('docSearch').value.trim();
+    const resultsDiv = document.getElementById('searchResults');
+
+    clearTimeout(searchTimeout);
+
+    if (query === '') {
+      resultsDiv.style.display = 'none';
+      return;
+    }
+
+    resultsDiv.innerHTML = '<div class="p-2">🔍 Поиск...</div>';
+    resultsDiv.style.display = 'block';
+
+    searchTimeout = setTimeout(() => {
+      fetch(`/api/search-documents/?q=${encodeURIComponent(query)}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.length === 0) {
+            resultsDiv.innerHTML = '<div class="p-2">😕 Ничего не найдено</div>';
+            return;
+          }
+
+          let html = '';
+          for (let i = 0; i < data.length; i++) {
+            html += `<div class="p-2 border-bottom" style="cursor:pointer" onclick="window.location.href='/reports/doc/${data[i].id}/'">
+                            <strong>📄 ${data[i].title}</strong><br>
+                            <small>📅 ${data[i].created_at}</small>
+                        </div>`;
+          }
+          resultsDiv.innerHTML = html;
+        })
+        .catch(error => {
+          resultsDiv.innerHTML = '<div class="p-2">❌ Ошибка</div>';
+        });
+    }, 300);
+  }
+
+  document.addEventListener('click', function (e) {
+    const searchInput = document.getElementById('docSearch');
+    const resultsDiv = document.getElementById('searchResults');
+    if (searchInput && resultsDiv &&
+      !searchInput.contains(e.target) &&
+      !resultsDiv.contains(e.target)) {
+      resultsDiv.style.display = 'none';
+    }
+  });
+</script>
+{% endblock %}

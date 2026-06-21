@@ -1,0 +1,54 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block admin_content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-tags"></i> Категории документов</h2>
+    <a href="{% url 'category_create' %}" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Добавить категорию
+    </a>
+</div>
+
+<div class="card">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Название</th>
+                        <th>Slug</th>
+                        <th>Иконка</th>
+                        <th>Порядок</th>
+                        <th style="width: 100px">Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cat in categories %}
+                    <tr>
+                        <td><strong>{{ cat.name }}</strong></td>
+                        <td><code>{{ cat.slug }}</code></td>
+                        <td><i class="bi {{ cat.icon }}"></i> {{ cat.icon }}</td>
+                        <td>{{ cat.order }}</td>
+                        <td>
+                            <a href="{% url 'category_edit' cat.pk %}" class="btn btn-sm btn-warning" title="Редактировать">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <a href="{% url 'category_delete' cat.pk %}" class="btn btn-sm btn-danger" title="Удалить" onclick="return confirm('Удалить категорию?')">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center py-4">
+                            <i class="bi bi-folder-x fs-1 text-muted"></i>
+                            <p class="mt-2 mb-0">Нет категорий</p>
+                            <a href="{% url 'category_create' %}" class="btn btn-sm btn-primary mt-2">Создать первую категорию</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

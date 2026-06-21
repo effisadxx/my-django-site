@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0"><i class="bi bi-person-plus"></i> Добавление пользователя</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <!-- ФИО -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Фамилия *</label>
+                                {{ form.last_name }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Имя *</label>
+                                {{ form.first_name }}
+                            </div>
+                        </div>
+                        
+                        <!-- Логин и Email -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Логин *</label>
+                                {{ form.username }}
+                                <small class="text-muted">Например: ivanov_ia</small>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Email</label>
+                                {{ form.email }}
+                            </div>
+                        </div>
+                        
+                        <!-- Пароли -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Пароль *</label>
+                                {{ form.password }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Подтверждение *</label>
+                                {{ form.confirm_password }}
+                            </div>
+                        </div>
+                        
+                        <!-- Роль и группа -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Роль *</label>
+                                {{ form.role }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Группа</label>
+                                {{ form.group }}
+                                <small class="text-muted">Для студентов: например, БУР-221б</small>
+                            </div>
+                        </div>
+                        
+                        {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+                        {% endif %}
+                        
+                        <hr>
+                        <div class="d-flex justify-content-between">
+                            <a href="{% url 'user_list' %}" class="btn btn-secondary">Отмена</a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save"></i> Добавить пользователя
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Подсказка при выборе роли
+    document.querySelector('#id_role').addEventListener('change', function() {
+        let groupField = document.querySelector('#id_group').closest('.col-md-6');
+        if (this.value === 'student') {
+            groupField.style.display = 'block';
+            document.querySelector('#id_group').placeholder = 'БУР-221б';
+        } else {
+            groupField.style.display = 'block';
+            document.querySelector('#id_group').placeholder = 'Должность (необязательно)';
+        }
+    });
+</script>
+{% endblock %}

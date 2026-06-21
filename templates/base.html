@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ЭДО - Альметьевский политехнический техникум{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; }
+        body { background: #f0f2f5; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; }
+        .content-wrapper { flex: 1 0 auto; }
+        .navbar { background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .navbar-brand { font-weight: 700; color: #1e40af; }
+        .card { border: none; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: transform 0.2s; }
+        .card:hover { transform: translateY(-3px); }
+        .btn-primary { background: #1e40af; border: none; border-radius: 8px; padding: 8px 20px; }
+        .btn-primary:hover { background: #1e3a8a; transform: translateY(-1px); }
+        .badge-sign { background: #10b981; color: white; padding: 4px 10px; border-radius: 20px; font-size: 11px; }
+        .footer { background: white; padding: 30px 0 20px; border-top: 1px solid #e5e7eb; flex-shrink: 0; margin-top: auto; }
+        .notification-badge { background: #ef4444; color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; margin-left: 5px; }
+        .hero-gradient { background: linear-gradient(135deg, #1e40af, #3b82f6); }
+        @media (max-width: 768px) { .hero-gradient h1 { font-size: 1.8rem; } }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <i class="bi bi-file-text-fill text-primary"></i> АльметПТ | ЭДО
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Главная</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'doc_list' %}">Документы</a></li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'personal_docs' %}">Мои документы</a></li>
+                        {% if user.is_superuser or user.profile.role == 'secretary' or user.profile.role == 'admin' %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'upload_doc' %}">Загрузить</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'report_document' %}">Отчёты</a></li>
+                        {% endif %}
+                        {% if user.is_superuser or user.profile.role == 'admin' %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'admin_dashboard' %}">Управление</a></li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link position-relative" href="{% url 'notifications' %}">
+                                <i class="bi bi-bell"></i>
+                                {% if unread_count > 0 %}
+                                <span class="notification-badge">{{ unread_count }}</span>
+                                {% endif %}
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                                <i class="bi bi-person-circle"></i> {{ user.first_name|default:user.username }}
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'profile' %}">Профиль</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{% url 'logout' %}">Выйти</a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li class="nav-item"><a class="btn btn-primary btn-sm" href="{% url 'login' %}">Вход</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-3">
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="content-wrapper">
+        <main class="py-4">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="container text-center">
+            <p class="mb-0 text-muted">© 2026 ГАПОУ «Альметьевский политехнический техникум»</p>
+            <small class="text-muted">г. Альметьевск, ул. Мира, д.10 | 8 (8553) 39-99-19 | info.almetpt@tatar.ru</small>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

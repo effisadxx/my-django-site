@@ -1,0 +1,46 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block admin_content %}
+<h2 class="mb-4"><i class="bi bi-speedometer2"></i> Панель управления</h2>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card text-center bg-primary text-white">
+            <div class="card-body">
+                <h1>{{ total_users }}</h1>
+                <p>Пользователей</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center bg-success text-white">
+            <div class="card-body">
+                <h1>{{ total_docs }}</h1>
+                <p>Документов</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center bg-info text-white">
+            <div class="card-body">
+                <h1>{{ total_categories }}</h1>
+                <p>Категорий</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h5>Быстрые действия</h5>
+    </div>
+    <div class="card-body">
+        <a href="{% url 'user_create' %}" class="btn btn-primary me-2">
+            <i class="bi bi-person-plus"></i> Добавить пользователя
+        </a>
+        <a href="{% url 'upload_doc' %}" class="btn btn-success">
+            <i class="bi bi-cloud-upload"></i> Загрузить документ
+        </a>
+    </div>
+</div>
+{% endblock %}

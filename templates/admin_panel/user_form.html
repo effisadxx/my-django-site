@@ -1,0 +1,116 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block admin_content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0"><i class="bi bi-person-plus"></i> Добавление пользователя</h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Фамилия *</label>
+                            {{ form.last_name }}
+                            <small class="text-muted">Например: Иванов</small>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Имя *</label>
+                            {{ form.first_name }}
+                            <small class="text-muted">Например: Иван</small>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Отчество</label>
+                            {{ form.patronymic }}
+                            <small class="text-muted">Например: Иванович</small>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        {{ form.email }}
+                        <small class="text-muted">Необязательно</small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Роль *</label>
+                        {{ form.role }}
+                        <small class="text-muted" id="roleHint"></small>
+                    </div>
+                    
+                    <div class="mb-3" id="groupField" style="display: none;">
+                        <label class="form-label">Группа *</label>
+                        {{ form.group }}
+                        <small class="text-muted">Например: БУР-221б, ИС-2326</small>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Пароль *</label>
+                            {{ form.password }}
+                            <small class="text-muted">Минимум 6 символов</small>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Подтверждение пароля *</label>
+                            {{ form.confirm_password }}
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-info small">
+                        <i class="bi bi-info-circle"></i>
+                        Логин будет сгенерирован автоматически из ФИО, например: <strong>ivanov_i</strong>
+                    </div>
+                    
+                    <hr>
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save"></i> Создать
+                        </button>
+                        <a href="{% url 'admin_users' %}" class="btn btn-secondary">
+                            <i class="bi bi-x-circle"></i> Отмена
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const roleSelect = document.querySelector('#id_role');
+    const groupField = document.getElementById('groupField');
+    const roleHint = document.getElementById('roleHint');
+    const groupInput = document.querySelector('#id_group');
+    
+    const roleHints = {
+        'applicant': 'Абитуриент - только просмотр общедоступных документов',
+        'student': 'Студент - требуется указание группы',
+        'teacher': 'Преподаватель - может подписывать документы',
+        'secretary': 'Секретарь-делопроизводитель - полный доступ к документам',
+        'admin': 'Администратор - полный доступ к системе'
+    };
+    
+    function updateRoleUI() {
+        const role = roleSelect.value;
+        
+        if (roleHint) {
+            roleHint.textContent = roleHints[role] || '';
+        }
+        
+        if (role === 'student') {
+            groupField.style.display = 'block';
+            groupInput.required = true;
+        } else {
+            groupField.style.display = 'none';
+            groupInput.required = false;
+            groupInput.value = '';
+        }
+    }
+    
+    roleSelect.addEventListener('change', updateRoleUI);
+    updateRoleUI();
+</script>
+{% endblock %}

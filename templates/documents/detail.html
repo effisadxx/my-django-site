@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">{{ document.title }}</h4>
+                        {% if document.is_personal %}
+                            {% if document.has_signature %}
+                            <span class="badge bg-success"><i class="bi bi-check-circle"></i> Подписан</span>
+                            {% else %}
+                            <span class="badge bg-warning"><i class="bi bi-clock"></i> Не подписан</span>
+                            {% endif %}
+                        {% else %}
+                            <span class="badge bg-secondary">📢 Общедоступный</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">{{ document.description|default:"Описание отсутствует" }}</p>
+                    
+                    <div class="bg-light p-3 rounded mb-4">
+                        <small><i class="bi bi-person"></i> Загрузил: {{ document.uploaded_by.get_full_name|default:document.uploaded_by.username }}</small><br>
+                        <small><i class="bi bi-calendar"></i> Дата: {{ document.created_at|date:"d.m.Y H:i" }}</small><br>
+                        <small><i class="bi bi-download"></i> Скачиваний: {{ document.downloads_count }}</small>
+                        
+                        {% if document.is_personal %}
+                            <br><small><i class="bi bi-people"></i> Получатели: 
+                                {% for recipient in document.recipients.all %}
+                                    {{ recipient.get_full_name }}{% if not forloop.last %}, {% endif %}
+                                {% empty %}
+                                    Не указаны
+                                {% endfor %}
+                            </small>
+                        {% endif %}
+                        
+                        <!-- Показываем подпись ТОЛЬКО для личных документов -->
+                        {% if document.is_personal and document.has_signature %}
+                        <hr>
+                        <small class="text-success">
+                            <i class="bi bi-check-circle-fill"></i> 
+                            <strong>Электронная подпись сотрудника:</strong> 
+                            {{ document.signed_by.get_full_name|default:document.signed_by.username }}
+                            ({{ document.signed_at|date:"d.m.Y H:i" }})
+                        </small>
+                        {% if document.student_signed %}
+                        <br>
+                        <small class="text-info">
+                            <i class="bi bi-person-check"></i> 
+                            <strong>Подписано студентом:</strong> 
+                            {% for recipient in document.recipients.all %}
+                                {{ recipient.get_full_name }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                            ({{ document.student_signed_at|date:"d.m.Y H:i" }})
+                        </small>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+
+                    <div class="d-flex gap-3">
+                        <a href="{% url 'download_document' document.pk %}" class="btn btn-primary">
+                            <i class="bi bi-download"></i> Скачать
+                        </a>
+                        
+                        <!-- Кнопка подписи ТОЛЬКО для личных документов -->
+                        {% if document.is_personal and not document.has_signature and can_sign %}
+                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#signModal">
+                            <i class="bi bi-pencil-square"></i> Подписать документ
+                        </button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно для подписи (только для личных документов) -->
+{% if document.is_personal and not document.has_signature and can_sign %}
+<div class="modal fade" id="signModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" action="{% url 'sign_document' document.pk %}">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title">Электронная подпись</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Вы подписываете документ: <strong>{{ document.title }}</strong></p>
+                    {{ signature_form.as_p }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                    <button type="submit" class="btn btn-success">Подписать</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

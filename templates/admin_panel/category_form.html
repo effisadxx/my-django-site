@@ -1,0 +1,87 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block admin_content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="mb-0">
+                    {% if category %}
+                    <i class="bi bi-pencil"></i> Редактирование категории
+                    {% else %}
+                    <i class="bi bi-plus-circle"></i> Добавление категории
+                    {% endif %}
+                </h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Название категории *</label>
+                        <input type="text" name="name" class="form-control" 
+                               value="{{ category.name|default:'' }}" required>
+                        <small class="text-muted">Например: Приказы, Расписание, Учебные материалы</small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Slug (уникальный идентификатор) *</label>
+                        <input type="text" name="slug" class="form-control" 
+                               value="{{ category.slug|default:'' }}" required>
+                        <small class="text-muted">Английскими буквами, например: prikazy, schedule, educational</small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Иконка Bootstrap Icons</label>
+                        <div class="input-group">
+                            <input type="text" name="icon" class="form-control" 
+                                   value="{{ category.icon|default:'bi-folder' }}">
+                            <span class="input-group-text">
+                                <i class="bi {{ category.icon|default:'bi-folder' }}"></i>
+                            </span>
+                        </div>
+                        <small class="text-muted">
+                            Список иконок: <a href="https://icons.getbootstrap.com/" target="_blank">Bootstrap Icons</a><br>
+                            Примеры: bi-folder, bi-file-text, bi-calendar-week, bi-journal-bookmark
+                        </small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Порядок сортировки</label>
+                        <input type="number" name="order" class="form-control" 
+                               value="{{ category.order|default:'0' }}">
+                        <small class="text-muted">Меньше число - выше в списке</small>
+                    </div>
+                    
+                    <hr>
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save"></i> Сохранить
+                        </button>
+                        <a href="{% url 'admin_categories' %}" class="btn btn-secondary">
+                            <i class="bi bi-x-circle"></i> Отмена
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Предпросмотр иконки при вводе
+    const iconInput = document.querySelector('input[name="icon"]');
+    const iconPreview = document.querySelector('.input-group-text i');
+    
+    if (iconInput && iconPreview) {
+        iconInput.addEventListener('input', function() {
+            const iconClass = this.value.trim();
+            if (iconClass) {
+                iconPreview.className = 'bi ' + iconClass;
+            } else {
+                iconPreview.className = 'bi bi-folder';
+            }
+        });
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-white text-center pt-4">
+                    <i class="bi bi-person-circle fs-1 text-primary"></i>
+                    <h4 class="mt-2">{{ user.get_full_name|default:user.username }}</h4>
+                    <span class="badge bg-primary">{{ user.profile.get_role_display }}</span>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span><i class="bi bi-person"></i> Имя пользователя</span>
+                            <strong>{{ user.username }}</strong>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span><i class="bi bi-envelope"></i> Email</span>
+                            <strong>{{ user.email }}</strong>
+                        </li>
+                        {% if user.profile.group %}
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span><i class="bi bi-people"></i> Группа</span>
+                            <strong>{{ user.profile.group }}</strong>
+                        </li>
+                        {% endif %}
+                        {% if user.profile.phone %}
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span><i class="bi bi-phone"></i> Телефон</span>
+                            <strong>{{ user.profile.phone }}</strong>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

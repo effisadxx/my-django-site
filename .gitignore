@@ -1,0 +1,26 @@
+# Виртуальное окружение
+venv/
+env/
+myenv/
+.env
+
+# База данных SQLite (если используете)
+db.sqlite3
+
+# Кеш Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Файлы IDE
+.vscode/
+.idea/
+*.swp
+
+# Секретные файлы
+config.py
+local_settings.py
+
+# Статика (собранная)
+staticfiles/
+media/

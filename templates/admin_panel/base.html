@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2 bg-light p-3" style="min-height: 100vh;">
+            <h5 class="mb-3">Управление</h5>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'admin_dashboard' %}">
+                        <i class="bi bi-speedometer2"></i> Панель управления
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'admin_users' %}">
+                        <i class="bi bi-people"></i> Пользователи
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'admin_categories' %}">
+                        <i class="bi bi-tags"></i> Категории
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'report_document' %}">
+                        <i class="bi bi-file-earmark-text"></i> Отчёты
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-10 p-4">
+            {% block admin_content %}{% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}

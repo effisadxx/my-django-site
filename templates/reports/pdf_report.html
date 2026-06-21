@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Отчёт по документу</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+        body {
+            font-family: 'DejaVu Sans', 'Arial', 'Helvetica', sans-serif;
+            font-size: 12px;
+            line-height: 1.5;
+            color: #333;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #1e40af;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            font-size: 16px;
+            margin: 0;
+            color: #1e40af;
+        }
+        .header h2 {
+            font-size: 14px;
+            margin: 5px 0;
+            color: #333;
+        }
+        .header h3 {
+            font-size: 18px;
+            margin: 10px 0;
+            color: #1e40af;
+        }
+        .info-table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+        .info-table td {
+            padding: 6px 8px;
+            vertical-align: top;
+        }
+        .info-table td:first-child {
+            font-weight: bold;
+            width: 140px;
+        }
+        .stat-box {
+            display: inline-block;
+            width: 30%;
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        .stat-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1e40af;
+        }
+        .stat-label {
+            font-size: 11px;
+            color: #666;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th {
+            background-color: #1e40af;
+            color: white;
+            padding: 8px;
+            text-align: center;
+            font-size: 11px;
+        }
+        td {
+            border: 1px solid #ccc;
+            padding: 6px 8px;
+            text-align: center;
+            font-size: 10px;
+        }
+        tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+        .sign-ok {
+            color: #16a34a;
+            font-weight: bold;
+        }
+        .sign-no {
+            color: #dc2626;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 10px;
+            color: #999;
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+        }
+        .role-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: bold;
+        }
+        .role-student {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        .role-teacher {
+            background: #d1fae5;
+            color: #065f46;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ШАПКА -->
+<div class="header">
+    <h1>МИНИСТЕРСТВО ОБРАЗОВАНИЯ И НАУКИ РЕСПУБЛИКИ ТАТАРСТАН</h1>
+    <h2>Государственное автономное профессиональное образовательное учреждение</h2>
+    <h1>«АЛЬМЕТЬЕВСКИЙ ПОЛИТЕХНИЧЕСКИЙ ТЕХНИКУМ»</h1>
+    <hr>
+    <h3>ОТЧЁТ ПО ДОКУМЕНТУ</h3>
+</div>
+
+<!-- ИНФОРМАЦИЯ О ДОКУМЕНТЕ -->
+<table class="info-table">
+    <tr>
+        <td>Название:</td>
+        <td>{{ document.title }}</td>
+    </tr>
+    <tr>
+        <td>Описание:</td>
+        <td>{{ document.description|default:"Нет описания" }}</td>
+    </tr>
+    <tr>
+        <td>Дата создания:</td>
+        <td>{{ document.created_at|date:"d.m.Y H:i" }}</td>
+    </tr>
+    <tr>
+        <td>Автор:</td>
+        <td>{{ document.uploaded_by.get_full_name|default:document.uploaded_by.username }}</td>
+    </tr>
+    <tr>
+        <td>Тип:</td>
+        <td>
+            {% if document.is_personal %}
+                <strong>Личный документ</strong>
+                {% if document.recipient_type == 'student' %}
+                    (для студентов)
+                {% else %}
+                    (для преподавателей)
+                {% endif %}
+            {% else %}
+                <strong>Общедоступный документ</strong>
+            {% endif %}
+        </td>
+    </tr>
+    {% if document.is_personal and recipients %}
+    <tr>
+        <td>Получатели:</td>
+        <td>
+            {% for r in recipients %}
+                {{ r.get_full_name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </td>
+    </tr>
+    {% endif %}
+</table>
+
+<!-- СТАТИСТИКА (только для личных документов) -->
+{% if document.is_personal %}
+<div style="text-align:center; margin: 20px 0;">
+    <div class="stat-box">
+        <div class="stat-number">{{ total_recipients }}</div>
+        <div class="stat-label">Всего получателей</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-number" style="color:#16a34a;">{{ signed_count }}</div>
+        <div class="stat-label">Подписали</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-number" style="color:#dc2626;">{{ unsigned_count }}</div>
+        <div class="stat-label">Не подписали</div>
+    </div>
+</div>
+
+<!-- ТАБЛИЦА ПОДПИСЕЙ -->
+<table>
+    <thead>
+        <tr>
+            <th>№</th>
+            <th>ФИО получателя</th>
+            <th>Роль</th>
+            <th>Группа</th>
+            <th>Статус подписи</th>
+            <th>Дата подписи</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for recipient in recipients %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td><strong>{{ recipient.last_name }} {{ recipient.first_name }}</strong></td>
+            <td>
+                {% if recipient.profile.role == 'student' %}
+                    <span class="role-badge role-student">Студент</span>
+                {% elif recipient.profile.role == 'teacher' %}
+                    <span class="role-badge role-teacher">Преподаватель</span>
+                {% else %}
+                    {{ recipient.profile.role }}
+                {% endif %}
+            </td>
+            <td>{{ recipient.profile.group|default:"—" }}</td>
+            <td>
+                {% if document.student_signed %}
+                    <span class="sign-ok">✅ Подписал</span>
+                {% else %}
+                    <span class="sign-no">❌ Не подписал</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if document.student_signed %}
+                    {{ document.student_signed_at|date:"d.m.Y H:i" }}
+                {% else %}
+                    —
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<!-- ДЛЯ ОБЩЕДОСТУПНЫХ -->
+<div style="text-align:center; padding: 30px; background: #f3f4f6; border-radius: 8px; margin-top: 20px;">
+    <p style="font-size: 16px; margin: 0;">📢 Общедоступный документ</p>
+    <p style="color: #666; margin-top: 5px;">Документ не требует подписи и доступен для скачивания всем пользователям системы.</p>
+</div>
+{% endif %}
+
+<!-- ПОДВАЛ -->
+<div class="footer">
+    Отчёт сформирован: {{ current_date|date:"d.m.Y H:i:s" }}
+</div>
+
+</body>
+</html>

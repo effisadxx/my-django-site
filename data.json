@@ -1,0 +1,1192 @@
+[
+  {
+    "model": "auth.permission",
+    "pk": 1,
+    "fields": {
+      "name": "Can add log entry",
+      "content_type": 1,
+      "codename": "add_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 2,
+    "fields": {
+      "name": "Can change log entry",
+      "content_type": 1,
+      "codename": "change_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 3,
+    "fields": {
+      "name": "Can delete log entry",
+      "content_type": 1,
+      "codename": "delete_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 4,
+    "fields": {
+      "name": "Can view log entry",
+      "content_type": 1,
+      "codename": "view_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 9,
+    "fields": {
+      "name": "Can add group",
+      "content_type": 3,
+      "codename": "add_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 10,
+    "fields": {
+      "name": "Can change group",
+      "content_type": 3,
+      "codename": "change_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 11,
+    "fields": {
+      "name": "Can delete group",
+      "content_type": 3,
+      "codename": "delete_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 12,
+    "fields": {
+      "name": "Can view group",
+      "content_type": 3,
+      "codename": "view_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 5,
+    "fields": {
+      "name": "Can add permission",
+      "content_type": 2,
+      "codename": "add_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 6,
+    "fields": {
+      "name": "Can change permission",
+      "content_type": 2,
+      "codename": "change_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 7,
+    "fields": {
+      "name": "Can delete permission",
+      "content_type": 2,
+      "codename": "delete_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 8,
+    "fields": {
+      "name": "Can view permission",
+      "content_type": 2,
+      "codename": "view_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 13,
+    "fields": {
+      "name": "Can add user",
+      "content_type": 4,
+      "codename": "add_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 14,
+    "fields": {
+      "name": "Can change user",
+      "content_type": 4,
+      "codename": "change_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 15,
+    "fields": {
+      "name": "Can delete user",
+      "content_type": 4,
+      "codename": "delete_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 16,
+    "fields": {
+      "name": "Can view user",
+      "content_type": 4,
+      "codename": "view_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 17,
+    "fields": {
+      "name": "Can add content type",
+      "content_type": 5,
+      "codename": "add_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 18,
+    "fields": {
+      "name": "Can change content type",
+      "content_type": 5,
+      "codename": "change_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 19,
+    "fields": {
+      "name": "Can delete content type",
+      "content_type": 5,
+      "codename": "delete_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 20,
+    "fields": {
+      "name": "Can view content type",
+      "content_type": 5,
+      "codename": "view_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 25,
+    "fields": {
+      "name": "Can add document",
+      "content_type": 7,
+      "codename": "add_document"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 26,
+    "fields": {
+      "name": "Can change document",
+      "content_type": 7,
+      "codename": "change_document"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 27,
+    "fields": {
+      "name": "Can delete document",
+      "content_type": 7,
+      "codename": "delete_document"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 28,
+    "fields": {
+      "name": "Can view document",
+      "content_type": 7,
+      "codename": "view_document"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 29,
+    "fields": {
+      "name": "Can add Категория",
+      "content_type": 8,
+      "codename": "add_documentcategory"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 30,
+    "fields": {
+      "name": "Can change Категория",
+      "content_type": 8,
+      "codename": "change_documentcategory"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 31,
+    "fields": {
+      "name": "Can delete Категория",
+      "content_type": 8,
+      "codename": "delete_documentcategory"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 32,
+    "fields": {
+      "name": "Can view Категория",
+      "content_type": 8,
+      "codename": "view_documentcategory"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 33,
+    "fields": {
+      "name": "Can add Скачивание",
+      "content_type": 9,
+      "codename": "add_documentdownload"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 34,
+    "fields": {
+      "name": "Can change Скачивание",
+      "content_type": 9,
+      "codename": "change_documentdownload"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 35,
+    "fields": {
+      "name": "Can delete Скачивание",
+      "content_type": 9,
+      "codename": "delete_documentdownload"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 36,
+    "fields": {
+      "name": "Can view Скачивание",
+      "content_type": 9,
+      "codename": "view_documentdownload"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 41,
+    "fields": {
+      "name": "Can add notification",
+      "content_type": 11,
+      "codename": "add_notification"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 42,
+    "fields": {
+      "name": "Can change notification",
+      "content_type": 11,
+      "codename": "change_notification"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 43,
+    "fields": {
+      "name": "Can delete notification",
+      "content_type": 11,
+      "codename": "delete_notification"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 44,
+    "fields": {
+      "name": "Can view notification",
+      "content_type": 11,
+      "codename": "view_notification"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 37,
+    "fields": {
+      "name": "Can add user profile",
+      "content_type": 10,
+      "codename": "add_userprofile"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 38,
+    "fields": {
+      "name": "Can change user profile",
+      "content_type": 10,
+      "codename": "change_userprofile"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 39,
+    "fields": {
+      "name": "Can delete user profile",
+      "content_type": 10,
+      "codename": "delete_userprofile"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 40,
+    "fields": {
+      "name": "Can view user profile",
+      "content_type": 10,
+      "codename": "view_userprofile"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 21,
+    "fields": {
+      "name": "Can add session",
+      "content_type": 6,
+      "codename": "add_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 22,
+    "fields": {
+      "name": "Can change session",
+      "content_type": 6,
+      "codename": "change_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 23,
+    "fields": {
+      "name": "Can delete session",
+      "content_type": 6,
+      "codename": "delete_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 24,
+    "fields": {
+      "name": "Can view session",
+      "content_type": 6,
+      "codename": "view_session"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$OVUNdyUa1NTQvh2SVTlqXI$9pxY+hQG2h4cYM0bZBiJom1yTx2VlDK5414BkgK+mdE=",
+      "last_login": "2026-06-21T09:44:13.898Z",
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2026-05-18T09:29:53.359Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$P1KMJC8jTgq3iwMqcTYNn4$C2x4x3Xepdh+SITQTjWIBEiJAmk++2vpM8ZsZsJ508M=",
+      "last_login": "2026-06-21T09:46:28.731Z",
+      "is_superuser": false,
+      "username": "00354",
+      "first_name": "Амина",
+      "last_name": "Назипова",
+      "email": "nazipovaamina24@gmail.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-05-18T10:07:46.193Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$QppauT6ZJEQPN7Yil6jnvK$VyEQUlIWozSOdXvcbuHpPlh5I0bq/S7sFl0Nesp6Etg=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "12345",
+      "first_name": "Эвелина",
+      "last_name": "Токранова",
+      "email": "tokr@gmail.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-05-22T05:56:56.749Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 6,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$DfGmMxfDCoYRUd8i3Aiqq4$sXSC7h919Xh3hCzGLAvPuHJ26GH+aYNSYHIiwnvsDw8=",
+      "last_login": "2026-06-21T09:44:04.893Z",
+      "is_superuser": false,
+      "username": "piyanzin_n",
+      "first_name": "Никита",
+      "last_name": "Пиянзин",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-06-17T08:54:08.131Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 7,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$Jani0bMpJj6l2KuRhFCKDv$o+EtZJSl8Cp+w7TE24Ir0k1Sh7ybadokohJ+2cv/4UQ=",
+      "last_login": "2026-06-18T22:09:44.446Z",
+      "is_superuser": false,
+      "username": "ivanov_i",
+      "first_name": "Иван",
+      "last_name": "Иванов",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-06-17T10:25:56.885Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 1,
+    "fields": {
+      "app_label": "admin",
+      "model": "logentry"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 2,
+    "fields": {
+      "app_label": "auth",
+      "model": "permission"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 3,
+    "fields": {
+      "app_label": "auth",
+      "model": "group"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 4,
+    "fields": {
+      "app_label": "auth",
+      "model": "user"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 5,
+    "fields": {
+      "app_label": "contenttypes",
+      "model": "contenttype"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 6,
+    "fields": {
+      "app_label": "sessions",
+      "model": "session"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 7,
+    "fields": {
+      "app_label": "documents",
+      "model": "document"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 8,
+    "fields": {
+      "app_label": "documents",
+      "model": "documentcategory"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 9,
+    "fields": {
+      "app_label": "documents",
+      "model": "documentdownload"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 10,
+    "fields": {
+      "app_label": "documents",
+      "model": "userprofile"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 11,
+    "fields": {
+      "app_label": "documents",
+      "model": "notification"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "zszkuddfdlf2ua1j5s1z4r4mfgonjmj5",
+    "fields": {
+      "session_data": ".eJxVjMsOwiAQAP9lz4ZALQv06L3fQHZ5SNVAUtqT8d9Nkx70OjOZN3jat-L3nla_RJhggMsvYwrPVA8RH1TvTYRWt3VhcSTitF3MLabX7Wz_BoV6gQmMdqNGla-IHFDaIQXLRqlkiaLNUVrDpDLqEJ0bJTl0ShIFRp1YSQmfL9eBN9I:1wOvCn:LKYP4oV6osvSR-Lb10HfmZXbv92-uVXt1IO4Sfjyh2U",
+      "expire_date": "2026-06-01T10:28:13.527Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "td43j5zeplphj14a0unzwhczjqe4wm6c",
+    "fields": {
+      "session_data": ".eJxVjDkOwjAUBe_iGllOvEJJnzNYfzMOoESKkwpxd4iUAto3M--lMmxrzVuTJY-sLqpTp98NgR4y7YDvMN1mTfO0LiPqXdEHbXqYWZ7Xw_07qNDqtw7O4hmTCV5CYenBem-ig-icsVGYSJC5YOlscmKMRUnEhQliXwiTen8A8Oc5HQ:1wPbbL:HYaTwQO1TodxqwYnP8ZNXTvtgWENgMSLgcuDMFAnhgs",
+      "expire_date": "2026-06-03T07:44:23.743Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "p3fe5kpzx3itdd6m65nz9g656c08nme8",
+    "fields": {
+      "session_data": ".eJxVjEsOwjAMBe-SNYrsJAoOS_acIbKdhBZQK_Wzqrg7VOoCtm9m3mYyr0uX17lOuS_mYtCcfjdhfdZhB-XBw320Og7L1IvdFXvQ2d7GUl_Xw_076HjuvvUZ2SVg0OAQiJCTj76EmFwTgeYhiHIi8YCsFRg9aQIKRCEqNmfeH7xlNvQ:1wQI4n:kX2ZVNCpfWYMUQsCg6Gvlsf0qhlw_ONi5ScJHgAjN_c",
+      "expire_date": "2026-06-05T05:05:37.941Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "ka7dsws2t9yj9z8h90p28styhdrsxo71",
+    "fields": {
+      "session_data": ".eJxVjEsOwjAMBe-SNYrsJAoOS_acIbKdhBZQK_Wzqrg7VOoCtm9m3mYyr0uX17lOuS_mYtCcfjdhfdZhB-XBw320Og7L1IvdFXvQ2d7GUl_Xw_076HjuvvUZ2SVg0OAQiJCTj76EmFwTgeYhiHIi8YCsFRg9aQIKRCEqNmfeH7xlNvQ:1wQK3h:GQZ7fTSY5kj36mpNBwNS0BYWzY6lHS1uCNEWm8dDYyw",
+      "expire_date": "2026-06-05T07:12:37.435Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "mm48miyhi2rb3op2k74tqdlci19z7zzo",
+    "fields": {
+      "session_data": ".eJxVjDEKwzAMAP-iuRjbNRbJ2L1vMJIsN2mLDXEyhf69BDK0691xOyTa1iltXZc0ZxjBw-WXMclL6yHyk-qjGWl1XWY2R2JO2829ZX3fzvZvMFGfYAQmQkXSoDaLhOytZ1dUrFj2Mlyjo8BYCmJ0bsDBipWAGktE51gIPl8Uazio:1waKz5:IvF5o4d3Zf3LkOLio7-8ecEEq-ApdSXA5ypiczxkrUU",
+      "expire_date": "2026-07-02T22:13:15.319Z"
+    }
+  },
+  {
+    "model": "documents.userprofile",
+    "pk": 1,
+    "fields": {
+      "user": 2,
+      "role": "student",
+      "group": "ИС-232б",
+      "patronymic": "Ильшатовна",
+      "phone": ""
+    }
+  },
+  {
+    "model": "documents.userprofile",
+    "pk": 3,
+    "fields": {
+      "user": 4,
+      "role": "student",
+      "group": "ИС-232Б",
+      "patronymic": "Сергеевна",
+      "phone": ""
+    }
+  },
+  {
+    "model": "documents.userprofile",
+    "pk": 5,
+    "fields": {
+      "user": 6,
+      "role": "teacher",
+      "group": "",
+      "patronymic": "Сергеевич",
+      "phone": ""
+    }
+  },
+  {
+    "model": "documents.userprofile",
+    "pk": 6,
+    "fields": {
+      "user": 7,
+      "role": "secretary",
+      "group": "",
+      "patronymic": "Иванович",
+      "phone": ""
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 1,
+    "fields": {
+      "title": "Экономическая составляющая обучения техникума",
+      "category": null,
+      "file": "documents/2026/05/economsostav.pdf",
+      "description": "",
+      "is_public": true,
+      "is_personal": false,
+      "recipient_type": "student",
+      "uploaded_by": 1,
+      "created_at": "2026-05-18T10:12:17.710Z",
+      "downloads_count": 1,
+      "is_published": true,
+      "has_signature": false,
+      "signed_by": null,
+      "signed_at": null,
+      "signature_hash": "",
+      "student_signed": false,
+      "student_signed_at": null,
+      "recipients": []
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 2,
+    "fields": {
+      "title": "ПРЕЙСКУРАНТ стоимости обучения для студентов групп нового набора 2026 год",
+      "category": null,
+      "file": "documents/2026/05/06_04_2026.pdf",
+      "description": "",
+      "is_public": false,
+      "is_personal": true,
+      "recipient_type": "student",
+      "uploaded_by": 1,
+      "created_at": "2026-05-18T10:13:29.512Z",
+      "downloads_count": 0,
+      "is_published": true,
+      "has_signature": true,
+      "signed_by": 2,
+      "signed_at": "2026-05-22T05:41:34.514Z",
+      "signature_hash": "SIG-2-1779428494",
+      "student_signed": true,
+      "student_signed_at": "2026-05-22T05:41:34.514Z",
+      "recipients": []
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 3,
+    "fields": {
+      "title": "Методические указания по оформлению курсовой работы (проекта), ВКР (дипломного проекта) в соответствии с ЕСКД",
+      "category": null,
+      "file": "documents/2026/05/vkr.doc",
+      "description": "",
+      "is_public": false,
+      "is_personal": true,
+      "recipient_type": "student",
+      "uploaded_by": 1,
+      "created_at": "2026-05-18T10:28:07.413Z",
+      "downloads_count": 0,
+      "is_published": true,
+      "has_signature": true,
+      "signed_by": 2,
+      "signed_at": "2026-05-20T07:10:53.928Z",
+      "signature_hash": "SIG-3-1779261053",
+      "student_signed": true,
+      "student_signed_at": "2026-05-20T07:10:53.928Z",
+      "recipients": []
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 4,
+    "fields": {
+      "title": "ПРЕЙСКУРАНТ стоимости обучения для студентов 4 курса (набор 2023г.) в ГАПОУ «Альметьевский политехнический техникум» на 2026-2027 учебный год",
+      "category": null,
+      "file": "documents/2026/05/4kurs2026.pdf",
+      "description": "",
+      "is_public": true,
+      "is_personal": true,
+      "recipient_type": "student",
+      "uploaded_by": 1,
+      "created_at": "2026-05-20T07:28:41.558Z",
+      "downloads_count": 0,
+      "is_published": true,
+      "has_signature": true,
+      "signed_by": 2,
+      "signed_at": "2026-05-20T07:29:16.238Z",
+      "signature_hash": "SIG-4-1779262156",
+      "student_signed": true,
+      "student_signed_at": "2026-05-20T07:29:16.238Z",
+      "recipients": []
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 5,
+    "fields": {
+      "title": "Психологический аспект формирования антикоррупционного мировоззрения и поведения.",
+      "category": null,
+      "file": "documents/2026/05/psaspekt.pptx",
+      "description": "",
+      "is_public": false,
+      "is_personal": true,
+      "recipient_type": "student",
+      "uploaded_by": 1,
+      "created_at": "2026-05-22T05:13:17.758Z",
+      "downloads_count": 0,
+      "is_published": true,
+      "has_signature": true,
+      "signed_by": 2,
+      "signed_at": "2026-05-22T05:13:47.346Z",
+      "signature_hash": "SIG-5-1779426827",
+      "student_signed": true,
+      "student_signed_at": "2026-05-22T05:13:47.346Z",
+      "recipients": []
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 6,
+    "fields": {
+      "title": "Должностная инструкция преподавателя",
+      "category": null,
+      "file": "documents/2026/06/dolzhninst.pdf",
+      "description": "",
+      "is_public": false,
+      "is_personal": true,
+      "recipient_type": "student",
+      "uploaded_by": 1,
+      "created_at": "2026-06-17T08:58:34.159Z",
+      "downloads_count": 0,
+      "is_published": true,
+      "has_signature": true,
+      "signed_by": 6,
+      "signed_at": "2026-06-17T08:59:00.212Z",
+      "signature_hash": "SIG-6-1781686740",
+      "student_signed": true,
+      "student_signed_at": "2026-06-17T08:59:00.213Z",
+      "recipients": [
+        6
+      ]
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 7,
+    "fields": {
+      "title": "Методические указания по оформлению курсовой работы (проекта), ВКР (дипломного проекта) в соответствии с ЕСКД",
+      "category": null,
+      "file": "documents/2026/06/vkr.doc",
+      "description": "",
+      "is_public": false,
+      "is_personal": true,
+      "recipient_type": "student",
+      "uploaded_by": 1,
+      "created_at": "2026-06-17T09:27:14.158Z",
+      "downloads_count": 0,
+      "is_published": true,
+      "has_signature": true,
+      "signed_by": 2,
+      "signed_at": "2026-06-18T21:26:30.178Z",
+      "signature_hash": "SIG-7-1781817990",
+      "student_signed": true,
+      "student_signed_at": "2026-06-18T21:26:30.180Z",
+      "recipients": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 8,
+    "fields": {
+      "title": "УСТАВ Государственного Автономного Профессионального Образовательного Учреждения «Альметьевский Политехнический Техникум»",
+      "category": null,
+      "file": "documents/2026/06/ustav.pdf",
+      "description": "",
+      "is_public": true,
+      "is_personal": false,
+      "recipient_type": "student",
+      "uploaded_by": 1,
+      "created_at": "2026-06-21T09:41:11.683Z",
+      "downloads_count": 0,
+      "is_published": true,
+      "has_signature": false,
+      "signed_by": null,
+      "signed_at": null,
+      "signature_hash": "",
+      "student_signed": false,
+      "student_signed_at": null,
+      "recipients": []
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 9,
+    "fields": {
+      "title": "КОЛЛЕКТИВНЫЙ ДОГОВОР",
+      "category": null,
+      "file": "documents/2026/06/koldogovor25.pdf",
+      "description": "",
+      "is_public": true,
+      "is_personal": false,
+      "recipient_type": "student",
+      "uploaded_by": 1,
+      "created_at": "2026-06-21T09:41:46.915Z",
+      "downloads_count": 0,
+      "is_published": true,
+      "has_signature": false,
+      "signed_by": null,
+      "signed_at": null,
+      "signature_hash": "",
+      "student_signed": false,
+      "student_signed_at": null,
+      "recipients": []
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 10,
+    "fields": {
+      "title": "Приказ о пользовании средствами мобильной связи и другими портативными электронными устройствами в техникуме",
+      "category": null,
+      "file": "documents/2026/06/183_5.pdf",
+      "description": "",
+      "is_public": false,
+      "is_personal": true,
+      "recipient_type": "student",
+      "uploaded_by": 1,
+      "created_at": "2026-06-21T09:42:46.032Z",
+      "downloads_count": 0,
+      "is_published": true,
+      "has_signature": false,
+      "signed_by": null,
+      "signed_at": null,
+      "signature_hash": "",
+      "student_signed": false,
+      "student_signed_at": null,
+      "recipients": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 11,
+    "fields": {
+      "title": "Положение о пользовании средствами мобильной связи и другими портативными электронными устройствами в техникуме",
+      "category": null,
+      "file": "documents/2026/06/mobile.pdf",
+      "description": "",
+      "is_public": false,
+      "is_personal": true,
+      "recipient_type": "student",
+      "uploaded_by": 1,
+      "created_at": "2026-06-21T09:43:23.982Z",
+      "downloads_count": 0,
+      "is_published": true,
+      "has_signature": false,
+      "signed_by": null,
+      "signed_at": null,
+      "signature_hash": "",
+      "student_signed": false,
+      "student_signed_at": null,
+      "recipients": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 12,
+    "fields": {
+      "title": "Должностная инструкция классного руководителя",
+      "category": null,
+      "file": "documents/2026/06/dolzhninstrklruk.pdf",
+      "description": "",
+      "is_public": false,
+      "is_personal": true,
+      "recipient_type": "student",
+      "uploaded_by": 1,
+      "created_at": "2026-06-21T09:44:47.644Z",
+      "downloads_count": 0,
+      "is_published": true,
+      "has_signature": false,
+      "signed_by": null,
+      "signed_at": null,
+      "signature_hash": "",
+      "student_signed": false,
+      "student_signed_at": null,
+      "recipients": [
+        6
+      ]
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 13,
+    "fields": {
+      "title": "График дежурства сотрудников (мужчин) на 2025-2026 учебный год",
+      "category": null,
+      "file": "documents/2026/06/0209_2025_4.pdf",
+      "description": "",
+      "is_public": false,
+      "is_personal": true,
+      "recipient_type": "student",
+      "uploaded_by": 1,
+      "created_at": "2026-06-21T09:45:48.180Z",
+      "downloads_count": 0,
+      "is_published": true,
+      "has_signature": false,
+      "signed_by": null,
+      "signed_at": null,
+      "signature_hash": "",
+      "student_signed": false,
+      "student_signed_at": null,
+      "recipients": [
+        6
+      ]
+    }
+  },
+  {
+    "model": "documents.document",
+    "pk": 14,
+    "fields": {
+      "title": "План подготовки к отопительному периоду учебно-производственного корпуса",
+      "category": null,
+      "file": "documents/2026/06/otopitupk.pdf",
+      "description": "",
+      "is_public": false,
+      "is_personal": true,
+      "recipient_type": "student",
+      "uploaded_by": 1,
+      "created_at": "2026-06-21T09:46:16.146Z",
+      "downloads_count": 0,
+      "is_published": true,
+      "has_signature": false,
+      "signed_by": null,
+      "signed_at": null,
+      "signature_hash": "",
+      "student_signed": false,
+      "student_signed_at": null,
+      "recipients": [
+        6
+      ]
+    }
+  },
+  {
+    "model": "documents.notification",
+    "pk": 14,
+    "fields": {
+      "user": 6,
+      "title": "📄 Новый личный документ",
+      "message": "Вам доступен документ: План подготовки к отопительному периоду учебно-производственного корпуса",
+      "document": 14,
+      "link": "/documents/doc/14/",
+      "is_read": false,
+      "created_at": "2026-06-21T09:46:16.171Z"
+    }
+  },
+  {
+    "model": "documents.notification",
+    "pk": 13,
+    "fields": {
+      "user": 6,
+      "title": "📄 Новый личный документ",
+      "message": "Вам доступен документ: График дежурства сотрудников (мужчин) на 2025-2026 учебный год",
+      "document": 13,
+      "link": "/documents/doc/13/",
+      "is_read": false,
+      "created_at": "2026-06-21T09:45:48.206Z"
+    }
+  },
+  {
+    "model": "documents.notification",
+    "pk": 12,
+    "fields": {
+      "user": 6,
+      "title": "📄 Новый личный документ",
+      "message": "Вам доступен документ: Должностная инструкция классного руководителя",
+      "document": 12,
+      "link": "/documents/doc/12/",
+      "is_read": false,
+      "created_at": "2026-06-21T09:44:47.669Z"
+    }
+  },
+  {
+    "model": "documents.notification",
+    "pk": 11,
+    "fields": {
+      "user": 2,
+      "title": "📄 Новый личный документ",
+      "message": "Вам доступен документ: Положение о пользовании средствами мобильной связи и другими портативными электронными устройствами в техникуме",
+      "document": 11,
+      "link": "/documents/doc/11/",
+      "is_read": false,
+      "created_at": "2026-06-21T09:43:24.004Z"
+    }
+  },
+  {
+    "model": "documents.notification",
+    "pk": 10,
+    "fields": {
+      "user": 2,
+      "title": "📄 Новый личный документ",
+      "message": "Вам доступен документ: Приказ о пользовании средствами мобильной связи и другими портативными электронными устройствами в техникуме",
+      "document": 10,
+      "link": "/documents/doc/10/",
+      "is_read": false,
+      "created_at": "2026-06-21T09:42:46.060Z"
+    }
+  },
+  {
+    "model": "documents.notification",
+    "pk": 9,
+    "fields": {
+      "user": 1,
+      "title": "📝 Документ подписан",
+      "message": "Документ \"Методические указания по оформлению курсовой работы (проекта), ВКР (дипломного проекта) в соответствии с ЕСКД\" подписан Амина Назипова",
+      "document": 7,
+      "link": "/documents/doc/7/",
+      "is_read": false,
+      "created_at": "2026-06-18T21:26:30.193Z"
+    }
+  },
+  {
+    "model": "documents.notification",
+    "pk": 8,
+    "fields": {
+      "user": 2,
+      "title": "📄 Новый личный документ",
+      "message": "Вам доступен документ: Методические указания по оформлению курсовой работы (проекта), ВКР (дипломного проекта) в соответствии с ЕСКД",
+      "document": 7,
+      "link": "/documents/doc/7/",
+      "is_read": true,
+      "created_at": "2026-06-17T09:27:14.184Z"
+    }
+  },
+  {
+    "model": "documents.notification",
+    "pk": 7,
+    "fields": {
+      "user": 1,
+      "title": "📝 Документ подписан",
+      "message": "Документ \"Должностная инструкция преподавателя\" подписан Никита Пиянзин",
+      "document": 6,
+      "link": "/documents/doc/6/",
+      "is_read": true,
+      "created_at": "2026-06-17T08:59:00.222Z"
+    }
+  },
+  {
+    "model": "documents.notification",
+    "pk": 6,
+    "fields": {
+      "user": 6,
+      "title": "📄 Новый личный документ",
+      "message": "Вам доступен документ: Должностная инструкция преподавателя",
+      "document": 6,
+      "link": "/documents/doc/6/",
+      "is_read": true,
+      "created_at": "2026-06-17T08:58:34.185Z"
+    }
+  },
+  {
+    "model": "documents.notification",
+    "pk": 5,
+    "fields": {
+      "user": 1,
+      "title": "📝 Документ подписан",
+      "message": "Документ \"ПРЕЙСКУРАНТ стоимости обучения для студентов групп нового набора 2026 год\" подписан Амина Назипова",
+      "document": 2,
+      "link": "/documents/doc/2/",
+      "is_read": true,
+      "created_at": "2026-05-22T05:41:34.517Z"
+    }
+  },
+  {
+    "model": "documents.notification",
+    "pk": 4,
+    "fields": {
+      "user": 1,
+      "title": "📝 Документ подписан",
+      "message": "Документ \"Психологический аспект формирования антикоррупционного мировоззрения и поведения.\" подписан Амина Назипова",
+      "document": 5,
+      "link": "/documents/doc/5/",
+      "is_read": true,
+      "created_at": "2026-05-22T05:13:47.348Z"
+    }
+  },
+  {
+    "model": "documents.notification",
+    "pk": 3,
+    "fields": {
+      "user": 2,
+      "title": "📄 Новый личный документ",
+      "message": "Вам доступен документ: Психологический аспект формирования антикоррупционного мировоззрения и поведения.",
+      "document": 5,
+      "link": "/documents/doc/5/",
+      "is_read": true,
+      "created_at": "2026-05-22T05:13:17.763Z"
+    }
+  },
+  {
+    "model": "documents.notification",
+    "pk": 2,
+    "fields": {
+      "user": 2,
+      "title": "📄 Новый личный документ",
+      "message": "Вам доступен документ: ПРЕЙСКУРАНТ стоимости обучения для студентов 4 курса (набор 2023г.) в ГАПОУ «Альметьевский политехнический техникум» на 2026-2027 учебный год",
+      "document": 4,
+      "link": "/documents/doc/4/",
+      "is_read": true,
+      "created_at": "2026-05-20T07:28:41.566Z"
+    }
+  },
+  {
+    "model": "documents.notification",
+    "pk": 1,
+    "fields": {
+      "user": 2,
+      "title": "📄 Новый личный документ",
+      "message": "Вам доступен новый документ: Методические указания по оформлению курсовой работы (проекта), ВКР (дипломного проекта) в соответствии с ЕСКД",
+      "document": 3,
+      "link": "/documents/doc/3/",
+      "is_read": true,
+      "created_at": "2026-05-18T10:28:07.436Z"
+    }
+  }
+]
